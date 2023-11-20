@@ -1,7 +1,7 @@
 // backend/routes/shoeRoutes.js
 const express = require('express');
 const router = express.Router();
-const shoeController = require('../Controllers/ShoeController');
+const shoeController = require('../Controllers/shoeController');
 
 // GET all shoes
 router.get('/shoes', shoeController.getAllShoes);
