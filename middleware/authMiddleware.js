@@ -4,10 +4,16 @@ const config = require('../config/config');
 
 const authenticateToken = (req, res, next) => {
   const token = req.header('Authorization');
-  if (!token) return res.status(401).send('Access denied.');
+
+  if (!token) {
+    return res.status(401).json({ error: 'Access denied. Token is missing.' });
+  }
 
   jwt.verify(token, config.jwtSecret, (err, user) => {
-    if (err) return res.status(403).send('Invalid token.');
+    if (err) {
+      return res.status(403).json({ error: 'Invalid token.' });
+    }
+
     req.user = user;
     next();
   });
