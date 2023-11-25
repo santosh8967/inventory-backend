@@ -8,7 +8,7 @@ const shoeRoutes = require('./routes/shoeRoutes');
 const billingRoutes = require('./routes/billingRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const { authenticateToken } = require('./middleware/authMiddleware');
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables from .env file
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -17,7 +17,7 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Connect to MongoDB
+// Connect to MongoDB using the provided URI from the .env file
 mongoose
   .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -61,4 +61,3 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
