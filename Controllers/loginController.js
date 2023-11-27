@@ -11,10 +11,10 @@ const login = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'email is not found' });
     }
 
-    // Check if the password is correct
+    // Check if the password is correct (you should use a secure method like bcrypt for password hashing)
     if (user.password !== password) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -33,3 +33,4 @@ const login = async (req, res) => {
 module.exports = {
   login,
 };
+

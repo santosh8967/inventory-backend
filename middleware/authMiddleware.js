@@ -1,9 +1,15 @@
-// authMiddleware.js
+// backend/middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
 const authenticateToken = (req, res, next) => {
-  const token = req.header('Authorization');
+  const authHeader = req.header('Authorization');
+
+  if (!authHeader) {
+    return res.status(401).json({ error: 'Access denied. Token is missing.' });
+  }
+
+  const token = authHeader.split(' ')[1];
 
   if (!token) {
     return res.status(401).json({ error: 'Access denied. Token is missing.' });

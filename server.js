@@ -7,6 +7,7 @@ const config = require('./config/config');
 const shoeRoutes = require('./routes/shoeRoutes');
 const billingRoutes = require('./routes/billingRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const registrationRoutes = require('./routes/registrationRoutes'); // Import registrationRoutes
 const { authenticateToken } = require('./middleware/authMiddleware');
 require('dotenv').config(); // Load environment variables from .env file
 
@@ -35,11 +36,14 @@ app.get('/', (req, res) => {
 // Use absolute paths for serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Registration routes
+app.use('/api', registrationRoutes);
+
 // Login routes
 app.use('/api', loginRoutes);
 
 // Use authentication middleware for protected routes
-app.use('/api/protected', authenticateToken);
+// app.use('/api/protected', authenticateToken);
 
 // Protected route handler
 app.get('/api/protected/data', (req, res) => {
